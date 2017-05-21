@@ -159,7 +159,7 @@ class FieldParser(object):
                         shifted_line = (shifted_content, shifted_index)
                         shifted_lines.append(shifted_line)
                     except:
-                        print "error: shifted index possibly out of range."
+                        print("error: shifted index possibly out of range.")
                 else:
                     pass
         self._flagged_lines = shifted_lines
@@ -273,7 +273,7 @@ class TextsParser(FieldParser):
     # strips lists of lines from each text
     def switch_texts_field_lines(self, regex = False):
         texts_field_lines = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             self._flagged_lines = field_lines
             if self._flagged_lines != False:
                 texts_field_lines[file_dir] = self.switch_field_lines(regex)
@@ -285,7 +285,7 @@ class TextsParser(FieldParser):
     # splits flagged lines from each text
     def break_texts_field_lines(self, regex = False):
         texts_field_lines = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             self._flagged_lines = field_lines
             if self._flagged_lines != False:
                 texts_field_lines[file_dir] = self.break_field_lines(regex)
@@ -297,7 +297,7 @@ class TextsParser(FieldParser):
     # drops flagged lines from each text
     def drop_texts_field_lines(self, regex = False):
         texts_field_lines = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             self._flagged_lines = field_lines
             if self._flagged_lines != False:
                 texts_field_lines[file_dir] = self.drop_field_lines(regex)
@@ -309,7 +309,7 @@ class TextsParser(FieldParser):
     # shifts flagged lines from each text
     def shift_texts_field_lines(self, regex = False):
         texts_field_lines = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             self._flagged_lines = field_lines
             if self._flagged_lines != False:
 
@@ -326,7 +326,7 @@ class TextsParser(FieldParser):
     # gets selected content from flagged texts
     def get_flagged_texts(self, start = 0, end = -1):
         flagged_texts = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             if field_lines:
                 self._get_text(file_dir)
                 self._get_lines()
@@ -346,9 +346,9 @@ class TextsParser(FieldParser):
         start_text = txt[0]
         end_text = txt[1]
         flagged_texts = self.get_flagged_texts(start_line, end_line)
-        texts_subset = dict(itertools.islice(flagged_texts.iteritems(),
+        texts_subset = dict(itertools.islice(iter(flagged_texts.items()),
                                                 start_text, end_text))
-        for file_dir, flagged_text in texts_subset.iteritems():
+        for file_dir, flagged_text in texts_subset.items():
             filename = ntpath.basename(file_dir)
             out_file = open(path + filename, 'w')
             for flagged_line in flagged_text:
@@ -358,7 +358,7 @@ class TextsParser(FieldParser):
     # gets selected content from unflagged texts
     def get_unflagged_texts(self, start = 0, end = -1):
         unflagged_texts = {}
-        for file_dir, field_lines in self._texts_field_lines.iteritems():
+        for file_dir, field_lines in self._texts_field_lines.items():
             if not field_lines:
                 self._get_text(file_dir)
                 self._get_lines()
@@ -379,9 +379,9 @@ class TextsParser(FieldParser):
         start_text = txt[0]
         end_text = txt[1]
         unflagged_texts = self.get_unflagged_texts(start_line, end_line)
-        texts_subset = dict(itertools.islice(unflagged_texts.iteritems(),
+        texts_subset = dict(itertools.islice(iter(unflagged_texts.items()),
                                                 start_text, end_text))
-        for file_dir, unflagged_text in texts_subset.iteritems():
+        for file_dir, unflagged_text in texts_subset.items():
             filename = ntpath.basename(file_dir)
             #print filename
             #print path + filename
@@ -403,7 +403,7 @@ class TextsParser(FieldParser):
     # gets total number of unflagged texts
     def get_unflagged_texts_total(self):
         texts_total = 0
-        for file_dir, text in self._texts_field_lines.iteritems():
+        for file_dir, text in self._texts_field_lines.items():
             if not text:
                 texts_total += 1
         return texts_total
@@ -411,7 +411,7 @@ class TextsParser(FieldParser):
     # gets total number of flagged texts
     def get_flagged_texts_total(self):
         texts_total = 0
-        for file_dir, text in self._texts_field_lines.iteritems():
+        for file_dir, text in self._texts_field_lines.items():
             if text:
                 texts_total += 1
         return texts_total
@@ -430,7 +430,7 @@ class TextsParser(FieldParser):
     # {text_1: (field_1, index_1), text_2: ...}
     def match_texts_flagged_line(self, matcher, match = True, regex = False):
         texts_matched_field = {}
-        for file_dir, text_field_lines in self._texts_field_lines.iteritems():
+        for file_dir, text_field_lines in self._texts_field_lines.items():
             self._flagged_lines = text_field_lines
             try:
                 matched_fields = self.match_flagged_lines(matcher, match,
@@ -459,7 +459,7 @@ class TextsParser(FieldParser):
     # {text_1: [(field_1, index_1), (field_2, index_2)], text_2: ...}
     def match_texts_flagged_lines(self, matcher, match = True, regex = False):
         texts_matched_fields = {}
-        for file_dir, text_field_lines in self._texts_field_lines.iteritems():
+        for file_dir, text_field_lines in self._texts_field_lines.items():
             self._flagged_lines = text_field_lines
             try:
                 matched_fields = self.match_flagged_lines(matcher, match,
